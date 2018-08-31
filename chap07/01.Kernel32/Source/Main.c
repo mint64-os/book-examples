@@ -3,7 +3,7 @@
  *  date    2008/12/14
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ð¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ìž‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
@@ -11,8 +11,8 @@
 void kPrintString( int iX, int iY, const char* pcString );
 
 /**
- *  ¾Æ·¡ ÇÔ¼ö´Â C ¾ð¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºÐÀÓ
- *      ¹Ýµå½Ã ´Ù¸¥ ÇÔ¼öµé º¸´Ù °¡Àå ¾ÕÂÊ¿¡ Á¸ÀçÇØ¾ß ÇÔ
+ *  ì•„ëž˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œìž‘ ë¶€ë¶„ìž„
+ *      ë°˜ë“œì‹œ ë‹¤ë¥¸ í•¨ìˆ˜ë“¤ ë³´ë‹¤ ê°€ìž¥ ì•žìª½ì— ì¡´ìž¬í•´ì•¼ í•¨
  */
 void Main( void )
 {
@@ -22,17 +22,17 @@ void Main( void )
 }
 
 /**
- *  ¹®ÀÚ¿­À» X, Y À§Ä¡¿¡ Ãâ·Â
+ *  ë¬¸ìžì—´ì„ X, Y ìœ„ì¹˜ì— ì¶œë ¥
  */
 void kPrintString( int iX, int iY, const char* pcString )
 {
     CHARACTER* pstScreen = ( CHARACTER* ) 0xB8000;
     int i;
     
-    // X, Y ÁÂÇ¥¸¦ ÀÌ¿ëÇØ¼­ ¹®ÀÚ¿­À» Ãâ·ÂÇÒ ¾îµå·¹½º¸¦ °è»ê
+    // X, Y ì¢Œí‘œë¥¼ ì´ìš©í•´ì„œ ë¬¸ìžì—´ì„ ì¶œë ¥í•  ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°
     pstScreen += ( iY * 80 ) + iX;
     
-    // NULLÀÌ ³ª¿Ã ¶§±îÁö ¹®ÀÚ¿­ Ãâ·Â
+    // NULLì´ ë‚˜ì˜¬ ë•Œê¹Œì§€ ë¬¸ìžì—´ ì¶œë ¥
     for( i = 0 ; pcString[ i ] != 0 ; i++ )
     {
         pstScreen[ i ].bCharactor = pcString[ i ];
