@@ -1,15 +1,16 @@
 # file		makefile
 # date		2008/11/12
 # author	kkamagui 
-# brief		°¡»ó OS ÀÌ¹ÌÁö¸¦ ºôµåÇÏ±â À§ÇÑ make ÆÄÀÏ
+# brief		ê°€ìƒ OS ì´ë¯¸ì§€ë¥¼ ë¹Œë“œí•˜ê¸° ìœ„í•œ make íŒŒì¼
 
-# ±âº»ÀûÀ¸·Î ºôµå¸¦ ¼öÇàÇÒ ¸ñ·Ï
+# ê¸°ë³¸ì ìœ¼ë¡œ ë¹Œë“œë¥¼ ìˆ˜í–‰í•  ëª©ë¡
 all: VirtualOS.bin
 
-# ºÎÆ® ·Î´õÀÇ ±â´ÉÀ» Å×½ºÆ® ÇÏ±â À§ÇÑ °¡»óÀÇ OS ÀÌ¹ÌÁö ºôµå
+# ë¶€íŠ¸ ë¡œë”ì˜ ê¸°ëŠ¥ì„ í…ŒìŠ¤íŠ¸ í•˜ê¸° ìœ„í•œ ê°€ìƒì˜ OS ì´ë¯¸ì§€ ë¹Œë“œ
 VirtualOS.bin: VirtualOS.asm
 	nasm -o VirtualOS.bin VirtualOS.asm
 
-# ¼Ò½º ÆÄÀÏÀ» Á¦¿ÜÇÑ ³ª¸ÓÁö ÆÄÀÏ Á¤¸®	
+# ì†ŒìŠ¤ íŒŒì¼ì„ ì œì™¸í•œ ë‚˜ë¨¸ì§€ íŒŒì¼ ì •ë¦¬	
 clean:
 	rm -f VirtualOS.bin
+

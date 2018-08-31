@@ -1,61 +1,62 @@
 # file      VirtualOS.asm
 # date      2008/11/27
 # author    kkamagui 
-# brief     °¡»ó OS ÀÌ¹ÌÁö¸¦ ¸¸µé±â À§ÇÑ ¼Ò½º ÆÄÀÏ
+# brief     ê°€ìƒ OS ì´ë¯¸ì§€ë¥¼ ë§Œë“¤ê¸° ìœ„í•œ ì†ŒìŠ¤ íŒŒì¼
 
-[ORG 0x00]          ; ÄÚµåÀÇ ½ÃÀÛ ¾îµå·¹½º¸¦ 0x00À¸·Î ¼³Á¤
-[BITS 16]           ; ÀÌÇÏÀÇ ÄÚµå´Â 16ºñÆ® ÄÚµå·Î ¼³Á¤
+[ORG 0x00]          ; ì½”ë“œì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤ë¥¼ 0x00ìœ¼ë¡œ ì„¤ì •
+[BITS 16]           ; ì´í•˜ì˜ ì½”ë“œëŠ” 16ë¹„íŠ¸ ì½”ë“œë¡œ ì„¤ì •
 
-SECTION .text       ; text ¼½¼Ç(¼¼±×¸ÕÆ®)À» Á¤ÀÇ
+SECTION .text       ; text ì„¹ì…˜(ì„¸ê·¸ë¨¼íŠ¸)ì„ ì •ì˜
 
-jmp 0x1000:START   ; CS ¼¼±×¸ÕÆ® ·¹Áö½ºÅÍ¿¡ 0x1000À» º¹»çÇÏ¸é¼­, START ·¹ÀÌºí·Î ÀÌµ¿
+jmp 0x1000:START   ; CS ì„¸ê·¸ë¨¼íŠ¸ ë ˆì§€ìŠ¤í„°ì— 0x1000ì„ ë³µì‚¬í•˜ë©´ì„œ, START ë ˆì´ë¸”ë¡œ ì´ë™
 
-SECTORCOUNT:        dw  0x0000      ; ÇöÀç ½ÇÇà ÁßÀÎ ¼½ÅÍ ¹øÈ£¸¦ ÀúÀå
-TOTALSECTORCOUNT    equ 1024        ; °¡»ó OSÀÇ ÃÑ ¼½ÅÍ ¼ö. 
-                                    ; ÃÖ´ë 1152 ¼½ÅÍ(0x90000byte)±îÁö °¡´É
+SECTORCOUNT:        dw  0x0000      ; í˜„ìž¬ ì‹¤í–‰ ì¤‘ì¸ ì„¹í„° ë²ˆí˜¸ë¥¼ ì €ìž¥
+TOTALSECTORCOUNT    equ 1024        ; ê°€ìƒ OSì˜ ì´ ì„¹í„° ìˆ˜. 
+                                    ; ìµœëŒ€ 1152 ì„¹í„°(0x90000byte)ê¹Œì§€ ê°€ëŠ¥
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;   ÄÚµå ¿µ¿ª
+;   ì½”ë“œ ì˜ì—­
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 START:
-    mov ax, cs                  ; CS ¼¼±×¸ÕÆ® ·¹Áö½ºÅÍÀÇ °ªÀ» AX ·¹Áö½ºÅÍ¿¡ ¼³Á¤
-    mov ds, ax                  ; AX ·¹Áö½ºÅÍÀÇ °ªÀ» DS ¼¼±×¸ÕÆ® ·¹Áö½ºÅÍ¿¡ ¼³Á¤
-    mov ax, 0xB800              ; ºñµð¿À ¸Þ¸ð¸® ¾îµå·¹½ºÀÎ 0x0B8000À» ¼¼±×¸ÕÆ®
-                                ; ·¹Áö½ºÅÍ °ªÀ¸·Î º¯È¯
-    mov es, ax                  ; ES ¼¼±×¸ÕÆ® ·¹Áö½ºÅÍ¿¡ ¼³Á¤
+    mov ax, cs                  ; CS ì„¸ê·¸ë¨¼íŠ¸ ë ˆì§€ìŠ¤í„°ì˜ ê°’ì„ AX ë ˆì§€ìŠ¤í„°ì— ì„¤ì •
+    mov ds, ax                  ; AX ë ˆì§€ìŠ¤í„°ì˜ ê°’ì„ DS ì„¸ê·¸ë¨¼íŠ¸ ë ˆì§€ìŠ¤í„°ì— ì„¤ì •
+    mov ax, 0xB800              ; ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ ì–´ë“œë ˆìŠ¤ì¸ 0x0B8000ì„ ì„¸ê·¸ë¨¼íŠ¸
+                                ; ë ˆì§€ìŠ¤í„° ê°’ìœ¼ë¡œ ë³€í™˜
+    mov es, ax                  ; ES ì„¸ê·¸ë¨¼íŠ¸ ë ˆì§€ìŠ¤í„°ì— ì„¤ì •
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; °¢ ¼½ÅÍ º°·Î ÄÚµå¸¦ »ý¼º
+    ; ê° ì„¹í„° ë³„ë¡œ ì½”ë“œë¥¼ ìƒì„±
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    %assign i   0               ; i¶ó´Â º¯¼ö¸¦ ÁöÁ¤ÇÏ°í 0À¸·Î ÃÊ±âÈ­
-    %rep TOTALSECTORCOUNT       ; TOTALSECTORCOUNT¿¡ ÀúÀåµÈ °ª¸¸Å­ ¾Æ·¡ ÄÚµå¸¦ ¹Ýº¹
-        %assign i   i + 1       ; i¸¦ 1 Áõ°¡
+    %assign i   0               ; ië¼ëŠ” ë³€ìˆ˜ë¥¼ ì§€ì •í•˜ê³  0ìœ¼ë¡œ ì´ˆê¸°í™”
+    %rep TOTALSECTORCOUNT       ; TOTALSECTORCOUNTì— ì €ìž¥ëœ ê°’ë§Œí¼ ì•„ëž˜ ì½”ë“œë¥¼ ë°˜ë³µ
+        %assign i   i + 1       ; ië¥¼ 1 ì¦ê°€
     
-        ; ÇöÀç ½ÇÇà ÁßÀÎ ÄÚµå°¡ Æ÷ÇÔµÈ ¼½ÅÍÀÇ À§Ä¡¸¦ È­¸é ÁÂÇ¥·Î º¯È¯
-        mov ax, 2                       ; ÇÑ ¹®ÀÚ¸¦ ³ªÅ¸³»´Â ¹ÙÀÌÆ® ¼ö(2)¸¦ 
-                                        ; AX ·¹Áö½ºÅÍ¿¡ ¼³Á¤
-        mul word [ SECTORCOUNT ]        ; AX ·¹Áö½ºÅÍ¿Í ¼½ÅÍ ¼ö¸¦ °öÇÔ
-        mov si, ax                      ; °öÇÑ °á°ú¸¦ SI ·¹Áö½ºÅÍ¿¡ ¼³Á¤
+        ; í˜„ìž¬ ì‹¤í–‰ ì¤‘ì¸ ì½”ë“œê°€ í¬í•¨ëœ ì„¹í„°ì˜ ìœ„ì¹˜ë¥¼ í™”ë©´ ì¢Œí‘œë¡œ ë³€í™˜
+        mov ax, 2                       ; í•œ ë¬¸ìžë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë°”ì´íŠ¸ ìˆ˜(2)ë¥¼ 
+                                        ; AX ë ˆì§€ìŠ¤í„°ì— ì„¤ì •
+        mul word [ SECTORCOUNT ]        ; AX ë ˆì§€ìŠ¤í„°ì™€ ì„¹í„° ìˆ˜ë¥¼ ê³±í•¨
+        mov si, ax                      ; ê³±í•œ ê²°ê³¼ë¥¼ SI ë ˆì§€ìŠ¤í„°ì— ì„¤ì •
 
-        ; °è»êµÈ °á°ú¸¦ ºñµð¿À ¸Þ¸ð¸®¿¡ ¿ÀÇÁ¼ÂÀ¸·Î »ï¾Æ ¼¼ ¹øÂ° ¶óÀÎºÎÅÍ È­¸é¿¡
-        ; 0À» Ãâ·Â
+        ; ê³„ì‚°ëœ ê²°ê³¼ë¥¼ ë¹„ë””ì˜¤ ë©”ëª¨ë¦¬ì— ì˜¤í”„ì…‹ìœ¼ë¡œ ì‚¼ì•„ ì„¸ ë²ˆì§¸ ë¼ì¸ë¶€í„° í™”ë©´ì—
+        ; 0ì„ ì¶œë ¥
         mov byte [ es: si + ( 160 * 2 ) ], '0' + ( i % 10 )
-        add word [ SECTORCOUNT ], 1     ; ¼½ÅÍ ¼ö¸¦ 1 Áõ°¡
+        add word [ SECTORCOUNT ], 1     ; ì„¹í„° ìˆ˜ë¥¼ 1 ì¦ê°€
 
-        ; ¸¶Áö¸· ¼½ÅÍÀÌ¸é ´õ ¼öÇàÇÒ ¼½ÅÍ°¡ ¾øÀ¸¹Ç·Î ¹«ÇÑ ·çÇÁ ¼öÇà, ±×·¸Áö ¾ÊÀ¸¸é
-        ; ´ÙÀ½ ¼½ÅÍ·Î ÀÌµ¿ÇØ¼­ ÄÚµå ¼öÇà
-        %if i == TOTALSECTORCOUNT       ; i°¡ TOTALSECTORCOUNT¿Í °°´Ù¸é, 
-                                        ; Áï ¸¶Áö¸· ¼½ÅÍÀÌ¸é
-            jmp $                       ; ÇöÀç À§Ä¡¿¡¼­ ¹«ÇÑ ·çÇÁ ¼öÇà
-        %else                           ; ¸¶Áö¸· ¼½ÅÍ°¡ ¾Æ´Ï¸é
-            jmp ( 0x1000 + i * 0x20 ): 0x0000   ; ´ÙÀ½ ¼½ÅÍ ¿ÀÇÁ¼ÂÀ¸·Î ÀÌµ¿
-        %endif                          ; if¹®ÀÇ ³¡
+        ; ë§ˆì§€ë§‰ ì„¹í„°ì´ë©´ ë” ìˆ˜í–‰í•  ì„¹í„°ê°€ ì—†ìœ¼ë¯€ë¡œ ë¬´í•œ ë£¨í”„ ìˆ˜í–‰, ê·¸ë ‡ì§€ ì•Šìœ¼ë©´
+        ; ë‹¤ìŒ ì„¹í„°ë¡œ ì´ë™í•´ì„œ ì½”ë“œ ìˆ˜í–‰
+        %if i == TOTALSECTORCOUNT       ; iê°€ TOTALSECTORCOUNTì™€ ê°™ë‹¤ë©´, 
+                                        ; ì¦‰ ë§ˆì§€ë§‰ ì„¹í„°ì´ë©´
+            jmp $                       ; í˜„ìž¬ ìœ„ì¹˜ì—ì„œ ë¬´í•œ ë£¨í”„ ìˆ˜í–‰
+        %else                           ; ë§ˆì§€ë§‰ ì„¹í„°ê°€ ì•„ë‹ˆë©´
+            jmp ( 0x1000 + i * 0x20 ): 0x0000   ; ë‹¤ìŒ ì„¹í„° ì˜¤í”„ì…‹ìœ¼ë¡œ ì´ë™
+        %endif                          ; ifë¬¸ì˜ ë
         
-        times ( 512 - ( $ - $$ ) % 512 )    db 0x00    ; $ ÇöÀç ¶óÀÎÀÇ ¾îµå·¹½º
-                            ; $$ ÇöÀç ¼½¼Ç(.text)ÀÇ ½ÃÀÛ ¾îµå·¹½º
-                            ; $ - $$ ÇöÀç ¼½¼ÇÀ» ±âÁØÀ¸·Î ÇÏ´Â ¿ÀÇÁ¼Â
-                            ; 512 - ( $ - $$ ) % 512 ÇöÀçºÎÅÍ ¾îµå·¹½º 512±îÁö
-                            ; db 0x00 1¹ÙÀÌÆ®¸¦ ¼±¾ðÇÏ°í °ªÀº 0x00
-                            ; time ¹Ýº¹ ¼öÇà
-                            ; ÇöÀç À§Ä¡¿¡¼­ ¾îµå·¹½º 512±îÁö 0x00À¸·Î Ã¤¿ò
-    %endrep                 ; ¹Ýº¹¹®ÀÇ ³¡
+        times ( 512 - ( $ - $$ ) % 512 )    db 0x00    ; $ í˜„ìž¬ ë¼ì¸ì˜ ì–´ë“œë ˆìŠ¤
+                            ; $$ í˜„ìž¬ ì„¹ì…˜(.text)ì˜ ì‹œìž‘ ì–´ë“œë ˆìŠ¤
+                            ; $ - $$ í˜„ìž¬ ì„¹ì…˜ì„ ê¸°ì¤€ìœ¼ë¡œ í•˜ëŠ” ì˜¤í”„ì…‹
+                            ; 512 - ( $ - $$ ) % 512 í˜„ìž¬ë¶€í„° ì–´ë“œë ˆìŠ¤ 512ê¹Œì§€
+                            ; db 0x00 1ë°”ì´íŠ¸ë¥¼ ì„ ì–¸í•˜ê³  ê°’ì€ 0x00
+                            ; time ë°˜ë³µ ìˆ˜í–‰
+                            ; í˜„ìž¬ ìœ„ì¹˜ì—ì„œ ì–´ë“œë ˆìŠ¤ 512ê¹Œì§€ 0x00ìœ¼ë¡œ ì±„ì›€
+    %endrep                 ; ë°˜ë³µë¬¸ì˜ ë
+
