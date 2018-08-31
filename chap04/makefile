@@ -1,12 +1,12 @@
 # file		makefile
 # date		2008/11/12
 # author	kkamagui 
-# brief		OS ÀÌ¹ÌÁö¸¦ ºôµåÇÏ±â À§ÇÑ make ÆÄÀÏ
+# brief		OS ì´ë¯¸ì§€ë¥¼ ë¹Œë“œí•˜ê¸° ìœ„í•œ make íŒŒì¼
 
-# ±âº»ÀûÀ¸·Î ºôµå¸¦ ¼öÇàÇÒ ¸ñ·Ï
+# ê¸°ë³¸ì ìœ¼ë¡œ ë¹Œë“œë¥¼ ìˆ˜í–‰í•  ëª©ë¡
 all: BootLoader Disk.img
 
-# ºÎÆ® ·Î´õ ºôµå¸¦ À§ÇØ ºÎÆ® ·Î´õ µğ·ºÅÍ¸®¿¡¼­ make ½ÇÇà
+# ë¶€íŠ¸ ë¡œë” ë¹Œë“œë¥¼ ìœ„í•´ ë¶€íŠ¸ ë¡œë” ë””ë ‰í„°ë¦¬ì—ì„œ make ì‹¤í–‰
 BootLoader:
 	@echo 
 	@echo ============== Build Boot Loader ===============
@@ -18,7 +18,7 @@ BootLoader:
 	@echo =============== Build Complete ===============
 	@echo 
 	
-# OS ÀÌ¹ÌÁö »ı¼º
+# OS ì´ë¯¸ì§€ ìƒì„±
 Disk.img: 00.BootLoader/BootLoader.bin
 	@echo 
 	@echo =========== Disk Image Build Start ===========
@@ -30,7 +30,7 @@ Disk.img: 00.BootLoader/BootLoader.bin
 	@echo ============= All Build Complete =============
 	@echo 
 	
-# ¼Ò½º ÆÄÀÏÀ» Á¦¿ÜÇÑ ³ª¸ÓÁö ÆÄÀÏ Á¤¸®	
+# ì†ŒìŠ¤ íŒŒì¼ì„ ì œì™¸í•œ ë‚˜ë¨¸ì§€ íŒŒì¼ ì •ë¦¬	
 clean:
 	make -C 00.BootLoader clean
 	rm -f Disk.img	
