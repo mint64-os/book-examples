@@ -3,19 +3,19 @@
  *  date    2008/12/14
  *  author  kkamagui 
  *          Copyright(c)2008 All rights reserved by kkamagui
- *  brief   C ¾ğ¾î·Î ÀÛ¼ºµÈ Ä¿³ÎÀÇ ¿£Æ®¸® Æ÷ÀÎÆ® ÆÄÀÏ
+ *  brief   C ì–¸ì–´ë¡œ ì‘ì„±ëœ ì»¤ë„ì˜ ì—”íŠ¸ë¦¬ í¬ì¸íŠ¸ íŒŒì¼
  */
 
 #include "Types.h"
 
-// ÇÔ¼ö ¼±¾ğ
+// í•¨ìˆ˜ ì„ ì–¸
 void kPrintString( int iX, int iY, const char* pcString );
 BOOL kInitializeKernel64Area( void );
 BOOL kIsMemoryEnough( void );
 
 /**
- *  ¾Æ·¡ ÇÔ¼ö´Â C ¾ğ¾î Ä¿³ÎÀÇ ½ÃÀÛ ºÎºĞÀÓ
- *      ¹İµå½Ã ´Ù¸¥ ÇÔ¼öµé º¸´Ù °¡Àå ¾ÕÂÊ¿¡ Á¸ÀçÇØ¾ß ÇÔ
+ *  ì•„ë˜ í•¨ìˆ˜ëŠ” C ì–¸ì–´ ì»¤ë„ì˜ ì‹œì‘ ë¶€ë¶„ì„
+ *      ë°˜ë“œì‹œ ë‹¤ë¥¸ í•¨ìˆ˜ë“¤ ë³´ë‹¤ ê°€ì¥ ì•ìª½ì— ì¡´ì¬í•´ì•¼ í•¨
  */
 void Main( void )
 {
@@ -23,7 +23,7 @@ void Main( void )
     
     kPrintString( 0, 3, "C Language Kernel Start.....................[Pass]" );
     
-    // ÃÖ¼Ò ¸Ş¸ğ¸® Å©±â¸¦ ¸¸Á·ÇÏ´Â Áö °Ë»ç
+    // ìµœì†Œ ë©”ëª¨ë¦¬ í¬ê¸°ë¥¼ ë§Œì¡±í•˜ëŠ” ì§€ ê²€ì‚¬
     kPrintString( 0, 4, "Minimum Memory Size Check...................[    ]" );
     if( kIsMemoryEnough() == FALSE )
     {
@@ -37,7 +37,7 @@ void Main( void )
         kPrintString( 45, 4, "Pass" );
     }
     
-    // IA-32e ¸ğµåÀÇ Ä¿³Î ¿µ¿ªÀ» ÃÊ±âÈ­
+    // IA-32e ëª¨ë“œì˜ ì»¤ë„ ì˜ì—­ì„ ì´ˆê¸°í™”
     kPrintString( 0, 5, "IA-32e Kernel Area Initialize...............[    ]" );
     if( kInitializeKernel64Area() == FALSE )
     {
@@ -51,17 +51,17 @@ void Main( void )
 }
 
 /**
- *  ¹®ÀÚ¿­À» X, Y À§Ä¡¿¡ Ãâ·Â
+ *  ë¬¸ìì—´ì„ X, Y ìœ„ì¹˜ì— ì¶œë ¥
  */
 void kPrintString( int iX, int iY, const char* pcString )
 {
     CHARACTER* pstScreen = ( CHARACTER* ) 0xB8000;
     int i;
     
-    // X, Y ÁÂÇ¥¸¦ ÀÌ¿ëÇØ¼­ ¹®ÀÚ¿­À» Ãâ·ÂÇÒ ¾îµå·¹½º¸¦ °è»ê
+    // X, Y ì¢Œí‘œë¥¼ ì´ìš©í•´ì„œ ë¬¸ìì—´ì„ ì¶œë ¥í•  ì–´ë“œë ˆìŠ¤ë¥¼ ê³„ì‚°
     pstScreen += ( iY * 80 ) + iX;
     
-    // NULLÀÌ ³ª¿Ã ¶§±îÁö ¹®ÀÚ¿­ Ãâ·Â
+    // NULLì´ ë‚˜ì˜¬ ë•Œê¹Œì§€ ë¬¸ìì—´ ì¶œë ¥
     for( i = 0 ; pcString[ i ] != 0 ; i++ )
     {
         pstScreen[ i ].bCharactor = pcString[ i ];
@@ -69,29 +69,29 @@ void kPrintString( int iX, int iY, const char* pcString )
 }
 
 /**
- *  IA-32e ¸ğµå¿ë Ä¿³Î ¿µ¿ªÀ» 0À¸·Î ÃÊ±âÈ­
- *      1Mbyte ~ 6Mbyte±îÁö ¿µ¿ªÀ» ÃÊ±âÈ­
+ *  IA-32e ëª¨ë“œìš© ì»¤ë„ ì˜ì—­ì„ 0ìœ¼ë¡œ ì´ˆê¸°í™”
+ *      1Mbyte ~ 6Mbyteê¹Œì§€ ì˜ì—­ì„ ì´ˆê¸°í™”
  */
 BOOL kInitializeKernel64Area( void )
 {
     DWORD* pdwCurrentAddress;
     
-    // ÃÊ±âÈ­¸¦ ½ÃÀÛÇÒ ¾îµå·¹½ºÀÎ 0x100000(1MB)À» ¼³Á¤
+    // ì´ˆê¸°í™”ë¥¼ ì‹œì‘í•  ì–´ë“œë ˆìŠ¤ì¸ 0x100000(1MB)ì„ ì„¤ì •
     pdwCurrentAddress = ( DWORD* ) 0x100000;
     
-    // ¸¶Áö¸· ¾îµå·¹½ºÀÎ 0x600000(6MB)±îÁö ·çÇÁ¸¦ µ¹¸é¼­ 4¹ÙÀÌÆ®¾¿ 0À¸·Î Ã¤¿ò
+    // ë§ˆì§€ë§‰ ì–´ë“œë ˆìŠ¤ì¸ 0x600000(6MB)ê¹Œì§€ ë£¨í”„ë¥¼ ëŒë©´ì„œ 4ë°”ì´íŠ¸ì”© 0ìœ¼ë¡œ ì±„ì›€
     while( ( DWORD ) pdwCurrentAddress < 0x600000 )
     {        
         *pdwCurrentAddress = 0x00;
 
-        // 0À¸·Î ÀúÀåÇÑ ÈÄ ´Ù½Ã ÀĞ¾úÀ» ¶§ 0ÀÌ ³ª¿ÀÁö ¾ÊÀ¸¸é ÇØ´ç ¾îµå·¹½º¸¦ 
-        // »ç¿ëÇÏ´Âµ¥ ¹®Á¦°¡ »ı±ä °ÍÀÌ¹Ç·Î ´õÀÌ»ó ÁøÇàÇÏÁö ¾Ê°í Á¾·á
+        // 0ìœ¼ë¡œ ì €ì¥í•œ í›„ ë‹¤ì‹œ ì½ì—ˆì„ ë•Œ 0ì´ ë‚˜ì˜¤ì§€ ì•Šìœ¼ë©´ í•´ë‹¹ ì–´ë“œë ˆìŠ¤ë¥¼ 
+        // ì‚¬ìš©í•˜ëŠ”ë° ë¬¸ì œê°€ ìƒê¸´ ê²ƒì´ë¯€ë¡œ ë”ì´ìƒ ì§„í–‰í•˜ì§€ ì•Šê³  ì¢…ë£Œ
         if( *pdwCurrentAddress != 0 )
         {
             return FALSE;
         }
         
-        // ´ÙÀ½ ¾îµå·¹½º·Î ÀÌµ¿
+        // ë‹¤ìŒ ì–´ë“œë ˆìŠ¤ë¡œ ì´ë™
         pdwCurrentAddress++;
     }
     
@@ -99,29 +99,29 @@ BOOL kInitializeKernel64Area( void )
 }
 
 /**
- *  MINT64 OS¸¦ ½ÇÇàÇÏ±â¿¡ ÃæºĞÇÑ ¸Ş¸ğ¸®¸¦ °¡Áö°í ÀÖ´ÂÁö Ã¼Å©
- *      64Mbyte ÀÌ»óÀÇ ¸Ş¸ğ¸®¸¦ °¡Áö°í ÀÖ´ÂÁö °Ë»ç
+ *  MINT64 OSë¥¼ ì‹¤í–‰í•˜ê¸°ì— ì¶©ë¶„í•œ ë©”ëª¨ë¦¬ë¥¼ ê°€ì§€ê³  ìˆëŠ”ì§€ ì²´í¬
+ *      64Mbyte ì´ìƒì˜ ë©”ëª¨ë¦¬ë¥¼ ê°€ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬
  */
 BOOL kIsMemoryEnough( void )
 {
     DWORD* pdwCurrentAddress;
    
-    // 0x100000(1MB)ºÎÅÍ °Ë»ç ½ÃÀÛ
+    // 0x100000(1MB)ë¶€í„° ê²€ì‚¬ ì‹œì‘
     pdwCurrentAddress = ( DWORD* ) 0x100000;
     
-    // 0x4000000(64MB)±îÁö ·çÇÁ¸¦ µ¹¸é¼­ È®ÀÎ
+    // 0x4000000(64MB)ê¹Œì§€ ë£¨í”„ë¥¼ ëŒë©´ì„œ í™•ì¸
     while( ( DWORD ) pdwCurrentAddress < 0x4000000 )
     {
         *pdwCurrentAddress = 0x12345678;
         
-        // 0x12345678·Î ÀúÀåÇÑ ÈÄ ´Ù½Ã ÀĞ¾úÀ» ¶§ 0x12345678ÀÌ ³ª¿ÀÁö ¾ÊÀ¸¸é 
-        // ÇØ´ç ¾îµå·¹½º¸¦ »ç¿ëÇÏ´Âµ¥ ¹®Á¦°¡ »ı±ä °ÍÀÌ¹Ç·Î ´õÀÌ»ó ÁøÇàÇÏÁö ¾Ê°í Á¾·á
+        // 0x12345678ë¡œ ì €ì¥í•œ í›„ ë‹¤ì‹œ ì½ì—ˆì„ ë•Œ 0x12345678ì´ ë‚˜ì˜¤ì§€ ì•Šìœ¼ë©´ 
+        // í•´ë‹¹ ì–´ë“œë ˆìŠ¤ë¥¼ ì‚¬ìš©í•˜ëŠ”ë° ë¬¸ì œê°€ ìƒê¸´ ê²ƒì´ë¯€ë¡œ ë”ì´ìƒ ì§„í–‰í•˜ì§€ ì•Šê³  ì¢…ë£Œ
         if( *pdwCurrentAddress != 0x12345678 )
         {
            return FALSE;
         }
         
-        // 1MB¾¿ ÀÌµ¿ÇÏ¸é¼­ È®ÀÎ
+        // 1MBì”© ì´ë™í•˜ë©´ì„œ í™•ì¸
         pdwCurrentAddress += ( 0x100000 / 4 );
     }
     return TRUE;
